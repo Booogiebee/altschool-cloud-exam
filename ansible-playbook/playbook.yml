@@ -45,7 +45,7 @@
      
     - name: clone laravel repo code from github
         git: >
-          repo=https://github.com/laravel/laravel.git
+          repo=https://github.com/f1amy/laravel-realworld-example-app
           dest=/opt/{{ vhost_name }}
           force=yes
           accept_hostkey=yes
@@ -131,11 +131,20 @@
                 mode: '0644'
            become: yes
 
+        - name: Migrating DB
+           shell: chdir={{ ansistrano_deploy_to }}/{{ ansistrano_current_dir }}
+             {{ php_path }} artisan migrate --force
+           register: migrate_result
+           changed_when: "migrate_result.stdout != 'Nothing to migrate.'"
+
+
         - name: setup laravel
-            shell: |
+            shell: 
                 cd /var/www/{{ vhost_name }}
                 php artisan key:generate
             become: yes
+
+        
 
       - name: Create PHP info file
         copy:

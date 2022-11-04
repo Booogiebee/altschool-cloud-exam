@@ -1,0 +1,24 @@
+<IfModule mod_ssl.c>      
+        <VirtualHost *:80>
+            ServerAdmin abeboluwatife47@gmail.com
+            ServerName abeboluwatife.me
+            ServerAlias www.abeboluwatife.me
+
+            DocumentRoot /var/www/html/{{vhost_name}}/public/
+
+            <Directory /var/www/html/{{vhost_name}}/>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Require all granted
+            </Directory>
+
+            ErrorLog ${APACHE_LOG_DIR}/error.log 
+            CustomLog ${APACHE_LOG_DIR}/access.log combined 
+
+            SSLEngine On 
+
+            SSLCertificatefile
+            SSLCertificatekeyfile
+Include /etc/letsencrypt/options-ssl-apache.conf
+        </VirtualHost>
+</IfModule>

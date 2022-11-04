@@ -1,0 +1,7 @@
+[host]
+138.68.83.120
+
+[host:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=ansible_test.pem
+ansible_ssh_port=22
